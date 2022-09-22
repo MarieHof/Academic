@@ -1,0 +1,57 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenavLeft opened mode="side" class="side-nav">
+    <mat-toolbar class="paperName">
+      <h2>{{paper && paper.title ? paper.title : 'New Document'}}</h2>
+
+      <span class="spacer"></span>
+    </mat-toolbar>
+    <mat-toolbar class="sidenav-toolbar">
+      <span class="file">save document</span>
+      <span class="spacer"></span>
+      <div class="sidenav-buttons">
+        <button mat-icon-button matTooltip="save document">
+          <mat-icon (click)=savePaper() class="icon-sidenav">save</mat-icon>
+        </button>
+      </div>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+    <mat-toolbar class="sidenav-toolbar">
+      <span class="file">Statistics</span>
+    </mat-toolbar>
+    <mat-list>
+      <!-- <mat-list-item>
+        Pages number: {{pages.length}}
+      </mat-list-item> -->
+      <mat-list-item>
+        <div>Words Count: <span style="margin-right:1rem"><strong>{{ wordsCount }}</strong></span></div>
+      </mat-list-item>
+      <mat-list-item>
+        <!--         <div>Durchschnittliche Satzlänge: <span style="margin-right:1rem" id="wordCount">{{ averageWordsInSentence
+            }}</span></div> -->
+        <div>Avarege Sentence Length: <span style="margin-right:1rem"><strong>{{ averageSentenceLength| number:'1.2-2'
+        }}</strong></span></div>
+      </mat-list-item>
+
+    </mat-list>
+    <mat-divider></mat-divider>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="container_row" [ngClass]="{'highlight': show}">
+
+<!--    <ckeditor class="layer1"-->
+<!--    [editor]="Editor" #myEditor (ready)="onReady($event)" [(ngModel)]="editorData"-->
+<!--      [config]="{ toolbar: [ 'heading', 'bold', 'italic', '|', 'undo', 'redo',  'numberedList', 'bulletedList', 'highlight'  ] }"-->
+<!--      (change)="onChange($event)" (keyup)="keyupEditor($event)"></ckeditor>-->
+    <ckeditor [data]="editorData" [config]="[]" (ready)="onReady($event)" [(ngModel)]="editorData"
+              (change)="onChange($event)"
+              class="layer1"></ckeditor>
+
+    <mat-form-field class="layer2">
+      <mat-label></mat-label>
+      <input matInput [(ngModel)]="searchTerm" (ngModelChange)="handleSearch()"
+      (keydown.enter)="highlight()"/>
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
