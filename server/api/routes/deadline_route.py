@@ -29,10 +29,10 @@ def get_deadline():
 
         return deadline_schema.jsonify(deadline), 200
 
-    if date:
-       week_deadlines = Deadline.get_by_date()
-       result = deadlines_schema.dump(week_deadlines)
-       return jsonify(result.data), 200
+#     if date:
+#        week_deadlines = Deadline.get_by_date()
+#        result = deadlines_schema.dump(week_deadlines)
+#        return jsonify(result.data), 200
 
     all_deadline = Deadline.get_all(user_id=author_id)
     result = deadlines_schema.dump(all_deadline)
